@@ -2,8 +2,8 @@ name: Ejecutar Batch Diario en Node.js
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # Invierno
-    - cron: "0 5 * * *"  # Verano
+    - cron: "0 6 * * 0-3"  # Invierno
+    - cron: "0 5 * * 0-3"  # Verano
   workflow_dispatch:  # Permite ejecución manual desde GitHub Actions
 
 jobs:
