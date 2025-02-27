@@ -1,0 +1,33 @@
+name: Build and Push Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - main  # O usa "master" si tu repo lo usa
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Iniciar sesión en GitHub Container Registry
+        run: echo "${{ secrets.PERSONAL_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Construir la imagen Docker
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/amiharder-booking:latest .
+      
+      - name: Subir la imagen a GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository }}/amiharder-booking:latest
+
+      - name: Marcar imagen como privada
+        run: |
+          gh api --method PATCH -H "Accept: application/vnd.github.v3+json" \
+          /user/packages/container/amiharder-booking/visibility \
+          -f visibility='private'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
