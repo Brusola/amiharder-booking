@@ -26,11 +26,3 @@ jobs:
       - name: Subir la imagen a GHCR
         run: |
           docker push ghcr.io/${{ env.OWNER_LC }}/amiharder-booking:latest
-
-      - name: Marcar imagen como privada
-        run: |
-          gh api --method PATCH -H "Accept: application/vnd.github.v3+json" \
-          /user/packages/container/amiharder-booking/visibility \
-          -f visibility='private'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
