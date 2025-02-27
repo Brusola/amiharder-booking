@@ -26,11 +26,11 @@ jobs:
       - name: Ejecutar el contenedor
         run: |
           docker run --rm \
-            -e MAIL=${{ secrets.MAIL }} \
-            -e PASS=${{ secrets.PASS }} \
-            -e BOX=${{ vars.BOX }} \
-            -e TIME=${{ vars.TIME }} \
-            -e HOST=${{ vars.HOST }} \
-            -e RUZAFA_HOST=${{ vars.RUZAFA_HOST }} \
-            -e CLUB=${{ vars.CLUB }} \
+            -e "MAIL=${{ secrets.MAIL }}" \
+            -e "PASS=${{ secrets.PASS }}" \
+            -e "BOX=${{ vars.BOX }}" \
+            -e "TIME=${{ vars.TIME }}" \
+            -e "HOST=${{ vars.HOST }}" \
+            -e "RUZAFA_HOST=${{ vars.RUZAFA_HOST }}" \
+            -e "CLUB=${{ vars.CLUB }}" \
             ghcr.io/${{ env.OWNER_LC }}/amiharder-booking:latest
