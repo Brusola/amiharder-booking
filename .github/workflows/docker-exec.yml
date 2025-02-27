@@ -1,4 +1,4 @@
-name: Ejecutar Batch Diario en Node.js
+name: Ejecutar Batch Diario en Docker
 
 on:
   workflow_dispatch:  # Permite ejecución manual desde GitHub Actions
