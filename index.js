@@ -104,6 +104,7 @@ async function main() {
     const result = await getBooking(formattedTodayPlus2);
     const booking = result.bookings.find((booking) => booking.className == `${club}` && booking.time == `${time}`);
     const bookresult = await book(formattedTodayPlus2, booking);
+    console.log(bookresult)
 }
 
 main();
