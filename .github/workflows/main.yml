@@ -11,8 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Convertir owner a minúsculas
+        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
+
       - name: Iniciar sesión en GHCR
-        run: echo "${{ secrets.PERSONAL_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Verificar imágenes disponibles
+        run: docker image ls  # Muestra imágenes locales
+
+      - name: Descargar la imagen desde GHCR
+        run: docker pull ghcr.io/${{ env.OWNER_LC }}/amiharder-booking:latest
 
       - name: Ejecutar el contenedor
         run: |
@@ -24,4 +33,4 @@ jobs:
             -e HOST=${{ vars.HOST }} \
             -e RUZAFA_HOST=${{ vars.RUZAFA_HOST }} \
             -e CLUB=${{ vars.CLUB }} \
-            ghcr.io/${{ github.repository }}/amiharder-booking:latest
+            ghcr.io/${{ env.OWNER_LC }}/amiharder-booking:latest
