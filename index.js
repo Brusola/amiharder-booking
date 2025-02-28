@@ -107,7 +107,7 @@ async function main() {
         const bookresult = await book(formattedTodayPlus2, booking);
         console.log(bookresult)
     } else {
-        console.log(`No book results in ${club} at ${time}`);
+        console.log(`No book results in ${club} at date:${formattedTodayPlus2} and time: ${time}`);
     }
 }
 
