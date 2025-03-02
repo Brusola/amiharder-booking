@@ -3,7 +3,6 @@ name: Ejecutar Batch Diario en Node.js
 on:
   schedule:
     - cron: "0 6 * * 0-3"  # Invierno
-    - cron: "0 5 * * 0-3"  # Verano
   workflow_dispatch:  # Permite ejecución manual desde GitHub Actions
 
 jobs:
@@ -31,4 +30,6 @@ jobs:
           HOST: ${{ vars.HOST }}
           RUZAFA_HOST: ${{ vars.RUZAFA_HOST }}
           CLUB: ${{ vars.CLUB }}
+          EXEC_HOUR: ${{ vars.EXEC_HOUR }}
+          EXEC_MIN: ${{ vars.EXEC_MIN }}
         run: node index.js

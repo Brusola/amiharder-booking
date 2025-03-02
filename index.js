@@ -14,6 +14,8 @@ const time = process.env.TIME;
 const host = process.env.HOST;
 const ruzafaHost = process.env.RUZAFA_HOST;
 const club = process.env.CLUB;
+const executionHour = process.env.EXEC_HOUR;
+const executionMin = process.env.EXEC_MIN;
 
 let cookieHeader = null;
 
@@ -39,6 +41,25 @@ function getFormattedDatePlus2() {
 
     return yyyy.toString() + mm.toString() + dd.toString();
 }
+
+const waitUntil = async (targetHour, targetMinute) => {
+    return new Promise((resolve) => {
+        const now = new Date();
+        const targetTime = new Date();
+
+        targetTime.setHours(targetHour, targetMinute, 0, 0); // Configurar a la hora exacta
+
+        let waitTime = targetTime - now; // Calcular el tiempo de espera en milisegundos
+
+        if (waitTime < 0) {
+            console.log("⚠️ La hora objetivo ya pasó. Ejecutando inmediatamente.");
+            return resolve();
+        }
+
+        console.log(`🕒 Esperando hasta las ${targetHour}:${targetMinute}... (${waitTime / 1000} segundos)`);
+        setTimeout(resolve, waitTime);
+    });
+};
 
 async function login() {
     let data = new FormData();
@@ -99,6 +120,7 @@ async function book(formattedTodayPlus2, booking) {
 
 
 async function main() {
+    await waitUntil(executionHour, executionMin);
     await login();
     const formattedTodayPlus2 = getFormattedDatePlus2();
     const result = await getBooking(formattedTodayPlus2);

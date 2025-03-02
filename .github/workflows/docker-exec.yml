@@ -30,4 +30,6 @@ jobs:
             -e HOST=${{ vars.HOST }} \
             -e RUZAFA_HOST=${{ vars.RUZAFA_HOST }} \
             -e CLUB=${{ vars.CLUB }} \
+            -e EXEC_HOUR=${{ vars.EXEC_HOUR }} \
+            -e EXEC_MIN=${{ vars.EXEC_MIN }} \
             ghcr.io/${{ env.OWNER_LC }}/amiharder-booking:latest
