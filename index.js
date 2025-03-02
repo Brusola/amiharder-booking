@@ -125,8 +125,12 @@ async function main() {
     const formattedTodayPlus2 = getFormattedDatePlus2();
     const result = await getBooking(formattedTodayPlus2);
     const booking = result.bookings.find((booking) => booking.className == `${club}` && booking.time == `${time}`);
-    const bookresult = await book(formattedTodayPlus2, booking);
-    console.log(bookresult)
+    if (booking != undefined) {
+        const bookresult = await book(formattedTodayPlus2, booking);
+        console.log(bookresult)
+    } else {
+        console.log(`No book results in ${club} at date:${formattedTodayPlus2} and time: ${time}`);
+    }
 }
 
 main();
